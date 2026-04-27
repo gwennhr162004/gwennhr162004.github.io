@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Ronit ❤️</title>
+<title>For Ronit ❤️</title>
 
 <style>
 body {
@@ -11,62 +11,71 @@ body {
   font-family: 'Segoe UI', sans-serif;
   text-align: center;
   background: linear-gradient(to bottom right, #ff9a9e, #fecfef);
+  color: white;
   overflow-x: hidden;
-  color: #fff;
 }
 
-.container {
-  padding: 60px 20px;
-}
-
+/* NAME ANIMATION */
 h1 {
-  font-size: 42px;
+  font-size: 40px;
   animation: glow 2s infinite alternate;
 }
-
 @keyframes glow {
   from { text-shadow: 0 0 10px #ff4d6d; }
-  to { text-shadow: 0 0 20px #ff99ac; }
-}
-
-p {
-  font-size: 18px;
+  to { text-shadow: 0 0 25px #ff99ac; }
 }
 
 button {
-  padding: 12px 25px;
-  font-size: 18px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#yes {
   background: #ff4d6d;
   color: white;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  margin-top: 20px;
+}
+#no {
+  background: white;
+  color: #ff4d6d;
+  position: absolute;
 }
 
-button:hover {
-  background: #ff1a4d;
-}
-
+/* HIDDEN */
 .hidden {
   display: none;
+}
+
+/* SLIDESHOW */
+.slideshow img {
+  width: 200px;
+  border-radius: 15px;
   margin-top: 20px;
-  animation: fadeIn 2s;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* LETTER */
+#letter {
+  position: fixed;
+  top: 20%;
+  left: 10%;
+  right: 10%;
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 15px;
+  display: none;
 }
 
-/* Floating hearts */
+/* HEARTS */
 .heart {
   position: fixed;
   bottom: -10px;
   font-size: 20px;
   animation: floatUp 6s linear infinite;
 }
-
 @keyframes floatUp {
   0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-100vh); opacity: 0; }
@@ -77,41 +86,109 @@ button:hover {
 
 <body>
 
-<div class="container">
+<h1>Hey Ronit ❤️</h1>
+<p>Do you want to open your birthday surprise? 🤭</p>
+
+<button id="yes" onclick="openSite()">Yes 💖</button>
+<button id="no">No 🙈</button>
+
+<div id="main" class="hidden">
   <h1>Happy Birthday Ronit ❤️</h1>
-  <p>You are my favorite person, my safe place, my everything 💕</p>
 
-  <button onclick="showMessage()">Open your surprise 🎁</button>
+  <!-- COUNTDOWN -->
+  <p id="countdown"></p>
 
-  <div id="surprise" class="hidden">
-    <p>I love you more than words can ever express 🥺💖</p>
-    <p>Thank you for coming into my life and making it magical ✨</p>
-    <p>You are my sunshine 🌻</p>
-    <p>Forever yours ❤️</p>
+  <!-- SLIDESHOW -->
+  <div class="slideshow">
+    <img id="slide" src="https://via.placeholder.com/200">
   </div>
+
+  <button onclick="openLetter()">Open Love Letter 💌</button>
+
+  <div id="letter">
+    <p>I love you so much Ronit 🥺💖<br>
+    You are my sunshine 🌻</p>
+    <button onclick="closeLetter()">Close</button>
+  </div>
+
+  <p>Play my voice 🎤</p>
+  <audio controls>
+    <source src="your-voice.mp3">
+  </audio>
 </div>
 
-<!-- Music -->
+<!-- MUSIC -->
 <audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
 </audio>
 
 <script>
-function showMessage() {
-  document.getElementById("surprise").style.display = "block";
+// NO BUTTON RUN AWAY 😂
+const noBtn = document.getElementById("no");
+noBtn.addEventListener("mouseover", () => {
+  noBtn.style.top = Math.random() * 80 + "%";
+  noBtn.style.left = Math.random() * 80 + "%";
+});
+
+// OPEN SITE + HEART EXPLOSION 💥
+function openSite() {
+  document.getElementById("main").style.display = "block";
+
+  for (let i = 0; i < 30; i++) {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 3000);
+  }
 }
 
-// Create floating hearts
+// LETTER
+function openLetter() {
+  document.getElementById("letter").style.display = "block";
+}
+function closeLetter() {
+  document.getElementById("letter").style.display = "none";
+}
+
+// COUNTDOWN ⏳
+const countdown = document.getElementById("countdown");
+const targetDate = new Date("June 1, 2026 00:00:00").getTime();
+
 setInterval(() => {
-  const heart = document.createElement("div");
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+  countdown.innerHTML = days + " days " + hours + " hours left 💕";
+}, 1000);
+
+// SLIDESHOW 📸
+const images = [
+  "https://via.placeholder.com/200",
+  "https://via.placeholder.com/200/ff4d6d",
+  "https://via.placeholder.com/200/fecfef"
+];
+
+let i = 0;
+setInterval(() => {
+  i = (i + 1) % images.length;
+  document.getElementById("slide").src = images[i];
+}, 2000);
+
+// FLOATING HEARTS
+setInterval(() => {
+  let heart = document.createElement("div");
   heart.className = "heart";
-  heart.innerHTML = "❤️";
+  heart.innerHTML = "💖";
   heart.style.left = Math.random() * 100 + "vw";
   document.body.appendChild(heart);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 6000);
+  setTimeout(() => heart.remove(), 6000);
 }, 500);
 </script>
 
